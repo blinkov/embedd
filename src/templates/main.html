@@ -1,31 +1,26 @@
-<section class="{{#config.dark}}dark{{/config.dark}} {{#config.both}}hasBtns{{/config.both}}">
+<section>
   {{#data}}
   <div class="info">
     {{#score}}
-    <h3>{{score}} upvotes {{#multiple}}over {{threads}} threads{{/multiple}} on {{config.service}}</h3>
+    <h3>{{score}} upvotes {{#multiple}}over {{threads}} threads{{/multiple}} on {{config.serviceName}}</h3>
     {{/score}}
     {{^score}}
-    <a target="_blank" href="{{submitUrl}}" class="no-comments">
-      <h3>Submit to {{config.service}}</h3>
+    <a target="_blank" href="{{submitUrl}}" class="no-comments btn btn-lg btn-outline-orange" rel="nofollow noreferrer external">
+      Start discussion on {{config.serviceName}}
     </a>
     {{/score}}
-    <h5>
-      Powered by <a target="_blank" href="https://embedd.io">embedd.io</a>
-    </h5>
   </div>
 
   {{#config.both}}
   {{#hasReddit}}
   {{#hasHn}}
-  <div class="buttons">
-    <button class="reddit-btn button{{#redditActive}} active{{/redditActive}}">
-      <img src="//i.imgur.com/I3JS7Ew.gif"/>
+  <div class="buttons btn-group my-3" role="group" aria-label="Comment source switch">
+    <button type="button" class="reddit-btn btn btn-outline-orange {{#redditActive}} active{{/redditActive}}">
       Reddit
     </button>
 
-    <button class="hn-btn button{{#hnActive}} active{{/hnActive}}">
-      <img src="//i.imgur.com/ByLiuCS.gif" />
-      HN
+    <button type="button" class="hn-btn btn btn-outline-orange button{{#hnActive}} active{{/hnActive}}">
+      HackerNews
     </button>
   </div>
   {{/hasHn}}
@@ -39,8 +34,8 @@
   </div>
 
   {{#config.loadMore}}
-  <div class="more-btn-container">
-    <button class="button more-btn">Load More</button>
+  <div class="more-btn-container text-center my-3">
+    <button class="btn btn-lg btn-outline-orange more-btn">Load more comments</button>
   </div>
   {{/config.loadMore}}
 

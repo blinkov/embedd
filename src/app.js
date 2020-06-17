@@ -1,6 +1,5 @@
 /* global require, location,Text */
 
-import './scss/app.scss'
 import async from 'async'
 import mustache from 'mustache'
 import hnConstructor from './hn'
@@ -14,13 +13,17 @@ function contextConstructor () {
 
   const script = document.currentScript
   const parent = script.parentNode
-  const container = document.createElement('div')
+  const container = document.getElementById('embedd-comments');
+  if (!container) {
+    return;
+  }
 
   context.config = {
     element: container,
     url: location.protocol + '//' + location.host + location.pathname,
     dark: false,
-    service: 'reddit',
+    service: 'hn',
+    serviceName: 'HackerNews',
     both: true,
     loadMore: true,
     infiniteScroll: false,
@@ -28,21 +31,11 @@ function contextConstructor () {
     debug: false
   }
 
-  const userConfig = script.innerHTML.length > 0
-    ? JSON.parse(script.innerHTML.trim())
-    : {}
-
-  context.config = extend(context.config, userConfig)
-
   if (typeof context.config.element === 'string') {
     context.config.element = document.querySelector(context.config.element)
   }
 
   context.config.element.className = 'embedd-container'
-
-  if (context.config.element === container) {
-    parent.insertBefore(container, script)
-  }
 
   if (context.config.loadMore && context.config.infiniteScroll) {
     context.config.loadMore = false
@@ -77,10 +70,10 @@ function contextConstructor () {
   }
 
   function initListeners () {
-    const hideButtons = [].slice.call(document.querySelectorAll('.embedd-container .hideChildrenBtn'))
+    const hideButtons = [].slice.call(document.querySelectorAll('.embedd-container .hide-children-btn'))
     const redditBtn = document.querySelector('.embedd-container .reddit-btn')
     const hnBtn = document.querySelector('.embedd-container .hn-btn')
-    const viewMoreBtns = [].slice.call(document.querySelectorAll('.embedd-container .viewMore'))
+    const viewMoreBtns = [].slice.call(document.querySelectorAll('.embedd-container .view-more'))
     const moreBtn = document.querySelector('.embedd-container .more-btn')
 
     hideButtons.forEach(x => {
@@ -94,6 +87,7 @@ function contextConstructor () {
     if (redditBtn) {
       redditBtn.addEventListener('click', () => {
         context.config.service = 'reddit'
+        context.config.serviceName = 'Reddit'
         context.init()
       }, false)
     }
@@ -101,6 +95,7 @@ function contextConstructor () {
     if (hnBtn) {
       hnBtn.addEventListener('click', () => {
         context.config.service = 'hn'
+        context.config.service = 'HackerNews'
         context.init()
       }, false)
     }

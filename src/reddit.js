@@ -31,6 +31,7 @@ export default function redditConstructor (spec) {
       replies: null,
       hasReplies: false,
       isEven: function () { return this.depth % 2 === 0 },
+      isOdd: function () { return this.depth % 2 === 1 },
       lowScore: function () { return this.score < 0 }
     }
   }

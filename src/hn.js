@@ -7,9 +7,11 @@ export default function hnConstructor (spec) {
   const { url, limit } = spec
   const embeddSpec = {}
 
-  embeddSpec.query = searchBase + encodeURIComponent(url)
-  embeddSpec.submitUrl = 'https://news.ycombinator.com/submit'
-  embeddSpec.base = 'https://hn.algolia.com/api/v1/items/'
+  const title = encodeURIComponent(document.querySelector('h1').innerText)
+  const encodedUrl = encodeURIComponent(url)
+  embeddSpec.query = searchBase + encodedUrl
+  embeddSpec.submitUrl = `https://news.ycombinator.com/submitlink?t=${title}&u=${encodedUrl}`
+  embeddSpec.base = 'https://hn.algolia.com/api/v1/items/';
   embeddSpec.limit = limit
 
   embeddSpec.dataFmt = (response, cb) => {
@@ -30,7 +32,8 @@ export default function hnConstructor (spec) {
       thread: 'https://news.ycombinator.com/item?id=' + comment.id,
       replies: null,
       hasReplies: false,
-      isEven: function () { return this.depth % 2 === 0 }
+      isEven: function () { return this.depth % 2 === 0 },
+      isOdd: function () { return this.depth % 2 === 1 }
     }
   }
 

@@ -1,30 +1,29 @@
-<article class="{{#isEven}}evenDepth{{/isEven}} {{#lowScore}}closed{{/lowScore}}">
+<article class="{{#isEven}}comment-even{{/isEven}}{{#isOdd}}comment-odd{{/isOdd}} {{#lowScore}}closed{{/lowScore}} p-3">
 
   <aside>
     <span>
-      <a class="hideChildrenBtn" href="javascript:void(0)"></a>
+      <a class="hide-children-btn" href="javascript:void(0)"></a>
     </span>
 
     <span>
-      <a href="{{author_link}}" target="_blank">{{author}}</a>
+      <a href="{{author_link}}" target="_blank" rel="nofollow noreferrer external">{{author}}</a>
     </span>
     {{#redditActive}}
     {{#score}}<span><b>{{score}} points</b></span>{{/score}}
     {{/redditActive}}
 
-    {{#permalink}}<span><a href="{{permalink}}">{{subreddit}}</a></span>{{/permalink}}
+    {{#permalink}}<span><a href="{{permalink}}" rel="nofollow noreferrer external" target="_blank">{{subreddit}}</a></span>{{/permalink}}
 
-    {{#created}}<span>{{created}}</span>{{/created}}
+    {{#created}}<span class="text-muted">{{created}}</span>{{/created}}
   </aside>
 
   {{#body_html}}
+
   {{& body_html}}
   {{/body_html}}
 
-  <aside class="links">
-    <span>
-      <a href="{{thread}}" target="_blank">view on {{config.service}}</a>
-    </span>
+  <aside class="links text-right">
+      <a href="{{thread}}" target="_blank" rel="nofollow noreferrer external" class="text-muted">View on {{config.serviceName}}</a>
   </aside>
 
   {{#hasReplies}}
@@ -32,13 +31,13 @@
     {{#replies}}
     {{> comment}}
     {{/replies}}
-  </div>
 
-  {{#loadMore}}
-  <div class="viewMore">
-    <a href="javascript:void(0)">view more comments</a>
+    {{#loadMore}}
+    <div class="view-more my-2">
+      <a href="javascript:void(0)" class="btn btn-secondary text-white">Show more comments</a>
+    </div>
+    {{/loadMore}}
   </div>
-  {{/loadMore}}
 
   {{/hasReplies}}
 
